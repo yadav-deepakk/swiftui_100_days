@@ -14,6 +14,7 @@
 - [WordScramble](https://github.com/yadav-deepakk/ios_app_dev/tree/p5-word-scramble)
 - [Animations](https://github.com/yadav-deepakk/swiftui_100_days/tree/p6-animations)
 - [iExpense](https://github.com/yadav-deepakk/swiftui_100_days/tree/p7-iExpense)
+- [Moonshot](https://github.com/yadav-deepakk/swiftui_100_days/tree/p8-moonshot)
 
 #### Challenges
 - [Unit Convertion](https://github.com/yadav-deepakk/ios_app_dev/tree/ch1-unit-conversions)
