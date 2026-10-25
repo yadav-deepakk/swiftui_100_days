@@ -7,14 +7,28 @@
 
 import SwiftUI
 
+struct CustomText: View {
+    var text : String
+    var body : some View {
+        Text("\(text)")
+            .font(.title.weight(.semibold))
+    }
+    init(text: String) {
+        print("creating custom text: \(text)")
+        self.text = text
+    }
+}
+
 struct ContentView: View {
     var body: some View {
-        Image(.example)
-            .resizable()
-            .scaledToFit()
-            .containerRelativeFrame(.horizontal) { size, axes in
-                size * 0.8
+        ScrollView {
+            LazyVStack(alignment: .leading) {
+                ForEach (1..<100) {
+                    CustomText(text: "List item \($0)")
+                }
             }
+            .frame(maxWidth: .infinity)
+        }
     }
 }
 
