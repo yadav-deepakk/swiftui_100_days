@@ -7,11 +7,33 @@
 
 import SwiftUI
 
+struct CustomText: View {
+    var number: Int
+    
+    var body : some View {
+        Text("showing view \(number)")
+    }
+    
+    init(number: Int) {
+        print("number \(number) is initialized")
+        self.number = number
+    }
+}
+
 struct ContentView : View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-            Text("Hello World!")
+        NavigationStack {
+            List {
+                ForEach(1..<100) { i in
+                    NavigationLink {
+                        CustomText(number: i)
+                    } label: {
+                        Text("Tap Me \(i)")
+                    }
+                }
+            }
+            .navigationTitle("Navigation Stack")
+
         }
     }
 }
