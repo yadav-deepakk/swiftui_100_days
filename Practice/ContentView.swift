@@ -7,30 +7,26 @@
 
 import SwiftUI
 
-struct Student: Hashable {
-    var id = UUID()
-    var name: String
-    var age: Int
-}
-
 struct ContentView : View {
-    var students: [Student] = [
-        Student(name: "Sandeep", age: 22),
-        Student(name: "Viky", age: 26),
-        Student(name: "Ranveer", age: 32),
-    ]
+    @State private var path: [Int] = []
     var body: some View {
-        NavigationStack {
-            List {
-                ForEach(students.indices, id:\.self) { i in
-                    NavigationLink("go to \(i)", value: students[i])
+        NavigationStack(path: $path) {
+            VStack {
+                Button("Go to 32") {
+                    path = [32]
+                }
+                
+                Button("Go to 64") {
+                    path = [32]
+                }
+                
+                Button("Go to 32 then 64") {
+                    path = [32, 64]
                 }
             }
-            .navigationDestination(for: Student.self) { student in
-                Text("Hello Student \(student.name)")
+            .navigationDestination(for: Int.self) { selection in
+                Text("Screen \(selection)")
             }
-            .navigationTitle("Navigation Stack")
-
         }
     }
 }
