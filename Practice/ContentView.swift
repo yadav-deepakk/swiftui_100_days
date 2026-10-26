@@ -7,30 +7,27 @@
 
 import SwiftUI
 
-struct CustomText: View {
-    var number: Int
-    
-    var body : some View {
-        Text("showing view \(number)")
-    }
-    
-    init(number: Int) {
-        print("number \(number) is initialized")
-        self.number = number
-    }
+struct Student: Hashable {
+    var id = UUID()
+    var name: String
+    var age: Int
 }
 
 struct ContentView : View {
+    var students: [Student] = [
+        Student(name: "Sandeep", age: 22),
+        Student(name: "Viky", age: 26),
+        Student(name: "Ranveer", age: 32),
+    ]
     var body: some View {
         NavigationStack {
             List {
-                ForEach(1..<100) { i in
-                    NavigationLink {
-                        CustomText(number: i)
-                    } label: {
-                        Text("Tap Me \(i)")
-                    }
+                ForEach(students.indices, id:\.self) { i in
+                    NavigationLink("go to \(i)", value: students[i])
                 }
+            }
+            .navigationDestination(for: Student.self) { student in
+                Text("Hello Student \(student.name)")
             }
             .navigationTitle("Navigation Stack")
 
