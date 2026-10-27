@@ -17,9 +17,7 @@ struct DetailsView : View {
             }
             .navigationTitle("navigation \(number)")
             .toolbar{
-                if path == NavigationPath() {
-                    EmptyView()
-                } else {
+                if path != NavigationPath() {
                     Button(
                         action: {self.path=NavigationPath()},
                         label:{Image(systemName: "house")}
