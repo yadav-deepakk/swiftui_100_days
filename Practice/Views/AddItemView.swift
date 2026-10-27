@@ -11,7 +11,7 @@ struct AddItemView: View {
 
     @Environment(\.dismiss) private var dismiss
 
-    @State private var name: String = ""
+    @State private var name: String = "ItemName"
     @State private var type: String = "personal"
     @State private var amount: Double = 0
 
@@ -23,7 +23,6 @@ struct AddItemView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Name", text: $name)
                     Picker("Type", selection: $type) {
                         ForEach(types, id: \.self) {
                             Text($0.capitalized)
@@ -35,20 +34,19 @@ struct AddItemView: View {
                 Section {
                     HStack {
                         Spacer()
-                        Button(
-                            "Add",
-                            action: {
-                                addItem()
-                                dismiss()
-                            })
+                        Button( "Add") {
+                            addItem()
+                            dismiss()
+                        }
                         Spacer()
                     }
                 }
             }
-            .navigationTitle("Add new expense")
+            .navigationTitle($name)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem {
-                    Button("Dismiss") { dismiss() }
+                    Button("Cancel") { dismiss() }
                 }
             }
         }

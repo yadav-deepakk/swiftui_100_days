@@ -37,12 +37,11 @@ class Expenses {
 }
 
 struct ContentView: View {
-    @State private var list: Expenses = Expenses()
-    @State private var showSheet: Bool = false
+    @State private var expensesList: Expenses = Expenses()
     var body: some View {
         NavigationStack {
             List {
-                ForEach(list.items) { item in
+                ForEach(expensesList.items) { item in
                     HStack {
                         VStack(alignment: .leading) {
                             Text("\(item.name)").font(.title3.weight(.semibold))
@@ -57,17 +56,20 @@ struct ContentView: View {
             .navigationTitle("iExpense")
             .toolbar {
                 ToolbarItem {
-                    Button("Add Expense", systemImage: "plus.circle") { showSheet = true }
+                    NavigationLink {
+                        AddItemView(expenses: expensesList)
+                            .navigationBarBackButtonHidden()
+                    } label: {
+                        Label("Add Item", systemImage: "plus")
+                    }
                 }
             }
         }
-        .sheet(isPresented: $showSheet) {
-            AddItemView(expenses: self.list)
-        }
+        
     }
 
     func removeItem(at offsets: IndexSet) {
-        list.items.remove(atOffsets: offsets)
+        expensesList.items.remove(atOffsets: offsets)
     }
 
 }
