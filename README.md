@@ -21,3 +21,4 @@
 - [Unit Convertion](https://github.com/yadav-deepakk/ios_app_dev/tree/ch1-unit-conversions)
 - [Rock, Paper, Scissors](https://github.com/yadav-deepakk/ios_app_dev/tree/ch2-rock-paper-scissor)
 - [Maths Multiplication Animation](https://github.com/yadav-deepakk/swiftui_100_days/tree/ch3-math-game-animations)
+- [Habit Tracker](https://github.com/yadav-deepakk/swiftui_100_days/tree/ch4-habit-tracker)
