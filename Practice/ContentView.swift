@@ -34,10 +34,19 @@ struct ContentView : View {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics == true else { return }
         var events = [CHHapticEvent]()
         
-        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.1)
-        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.1)
-        let event = CHHapticEvent( eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
-        events.append(event)
+        for i in stride(from: 0.0, to: 1.0, by: 0.1) {
+            let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(i))
+            let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: Float(i))
+            let event = CHHapticEvent( eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: i)
+            events.append(event)
+        }
+        
+        for i in stride(from: 0.0, to: 1.0, by: 0.1) {
+            let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(1-i))
+            let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: Float(1-i))
+            let event = CHHapticEvent( eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 1 + i)
+            events.append(event)
+        }
         
         do {
             
