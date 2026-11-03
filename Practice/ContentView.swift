@@ -29,7 +29,7 @@ struct ContentView : View {
                     }
                 }
                 Section {
-                    NavigationLink("Address", destination: { AddressView() })
+                    NavigationLink("Address", destination: { AddressView(order: order) })
                 }
             }
             .navigationTitle("Cupcake Corner")
