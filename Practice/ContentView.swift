@@ -5,57 +5,34 @@
 //  Created by Deepak Kumar Yadav on 04/09/26.
 //
 
-import CoreHaptics
 import SwiftUI
 
 struct ContentView : View {
-    @State private var count = 0
-    @State private var hapticEngine: CHHapticEngine?
+    @State private var order: Order = Order()
     
     var body: some View {
-        Button("Tap me", action: complexSuccess)
-            .onAppear(perform: prepareHapics)
-    }
-    
-    func prepareHapics() {
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics == true else {
-            print("haptics are not supported by the hardware")
-            return
-        }
-        do {
-            hapticEngine = try CHHapticEngine()
-            try hapticEngine?.start()
-        } catch {
-            print("unable to start haptic engine")
-        }
-    }
-    
-    func complexSuccess() {
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics == true else { return }
-        var events = [CHHapticEvent]()
-        
-        for i in stride(from: 0.0, to: 1.0, by: 0.1) {
-            let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(i))
-            let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: Float(i))
-            let event = CHHapticEvent( eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: i)
-            events.append(event)
-        }
-        
-        for i in stride(from: 0.0, to: 1.0, by: 0.1) {
-            let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: Float(1-i))
-            let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: Float(1-i))
-            let event = CHHapticEvent( eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 1 + i)
-            events.append(event)
-        }
-        
-        do {
-            
-            let pattern = try CHHapticPattern(events: events, parameters: [])
-            let player = try hapticEngine?.makePlayer(with: pattern)
-            try player?.start(atTime: 0)
-            
-        } catch {
-            print ("error in playing pattern \(error.localizedDescription)")
+        NavigationStack {
+            Form {
+                Section {
+                    Picker("Select your cake type", selection: $order.type) {
+                        ForEach(Order.types.indices, id: \.self) { i in
+                            Text("\(Order.types[i])")
+                        }
+                    }
+                    Stepper("Number of cakes: \(order.quantity)", value: $order.quantity, in: 3...20)
+                }
+                Section {
+                    Toggle("Any special requests?", isOn: $order.specialRequestEnabled)
+                    if order.specialRequestEnabled {
+                        Toggle("Add extra frosting", isOn: $order.extraFrosting)
+                        Toggle("Add extra sprinkles", isOn: $order.addSprinkles)
+                    }
+                }
+                Section {
+                    NavigationLink("Address", destination: { AddressView() })
+                }
+            }
+            .navigationTitle("Cupcake Corner")
         }
     }
 }
