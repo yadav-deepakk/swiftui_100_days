@@ -5,31 +5,15 @@
 //  Created by Deepak Kumar Yadav on 04/09/26.
 //
 
-import Observation
 import SwiftUI
 
-@Observable
-class User: Codable {
-    enum CodingKeys: String, CodingKey {
-        case _name = "name"
-    }
-    var name = "taylor"
-}
-
 struct ContentView : View {
-    
+    @State private var count = 0
     var body: some View {
-        VStack {
-            Button("encode", action: encodeUser)
-        }
+        Button("Tap Count: \(count)", action: { count += 1 })
+//            .sensoryFeedback(.impact(flexibility: .soft, intensity: 0.5), trigger: count)
+            .sensoryFeedback(.impact(weight: .heavy, intensity: 0.5), trigger: count)
     }
-    
-    func encodeUser() {
-        let encode = try! JSONEncoder().encode(User())
-        let str = String(decoding: encode, as: UTF8.self)
-        print(str)
-    }
-    
 }
 
 #Preview {
