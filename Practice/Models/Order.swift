@@ -39,13 +39,14 @@ class Order: Codable {
     var extraFrosting = false
     var addSprinkles = false
 
-    var name: String = ""
-    var city: String = ""
-    var street: String = ""
-    var zip: String = ""
+    var name: String = "" { didSet { UserDefaults.standard.set(name, forKey: "name") } }
+    var city: String = "" { didSet { UserDefaults.standard.set(city, forKey: "city") } }
+    var street: String = "" { didSet { UserDefaults.standard.set(street, forKey: "street") } }
+    var zip: String = "" { didSet { UserDefaults.standard.set(zip, forKey: "zip") } }
 
     var isValidAddress: Bool {
-        name.count > 0 && city.count > 0 && street.count > 0 && zip.count > 0
+        func trimmedStr(_ s: String) -> String { s.trimmingCharacters(in: .whitespacesAndNewlines) }
+        return trimmedStr(name).count>0 && trimmedStr(city).count>0 && trimmedStr(street).count>0 && trimmedStr(zip).count>0
     }
 
     var cost: Decimal {
@@ -58,6 +59,13 @@ class Order: Codable {
             cost += Decimal(quantity) / 2
         }
         return cost
+    }
+    
+    init() {
+        self.name = UserDefaults.standard.string(forKey: "name") ?? ""
+        self.city = UserDefaults.standard.string(forKey: "city") ?? ""
+        self.street = UserDefaults.standard.string(forKey: "street") ?? ""
+        self.zip = UserDefaults.standard.string(forKey: "zip") ?? ""
     }
 
 }
