@@ -5,8 +5,8 @@
 //  Created by Deepak Kumar Yadav on 04/09/26.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct PracticeApp: App {
@@ -14,6 +14,6 @@ struct PracticeApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: Student.self)
+        .modelContainer(for: Book.self)
     }
 }
